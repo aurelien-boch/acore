@@ -1,0 +1,48 @@
+@startuml
+
+namespace acore {
+    namespace utility {
+        class Triggerable {
+            int _fd
+            std::uint32_t epoll_event
+            Triggerable(int fd, std::uint32_t epoll_event)
+            int getNativeHandle()
+        }
+
+        class Timer {
+            bool _started
+            void start()
+            void stop()
+            void isStarted()
+            void setRateAsNano(std::size_t nanoseconds)
+            void setRateAsMicro(std::size_t microseconds)
+            void setRateAsMillis(std::size_t milliseconds)
+        }
+
+        class Trigger {
+            bool _triggered
+            int _writeFd
+            void trigger()
+            void clean()
+            void isTriggered()
+        }
+
+        class TriggerFd {
+            bool _closeOnDestruct
+            TriggerFd(WatchType watchMode, int fd, bool closeOnDestruct)
+            WatchType getWatchType()
+        }
+
+        Triggerable --|> Timer
+        Triggerable --|> Trigger
+        Triggerable --|> TriggerFd
+        TriggerFd *-- WatchType
+
+        enum WatchType {
+            READ
+            WRITE
+        }
+    }
+}
+
+@enduml

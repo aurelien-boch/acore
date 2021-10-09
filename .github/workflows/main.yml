@@ -1,0 +1,11 @@
+on: [ push, pull_request ]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - id: "build/"
+        run: |
+          mkdir build/
+          cmake -B build/ -S .
+          cmake --build build/

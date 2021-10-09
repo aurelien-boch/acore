@@ -1,0 +1,14 @@
+@startuml
+
+namespace acore {
+    class AsyncManager {
+        AsyncManager(std::size_t threadNumber)
+        void register(const Triggerable &t, const std::function<void (void)> &callback)
+        void register(const TriggerFd &t, const std::function<void (int fd)> &callback
+        void run()
+        void runBackground()
+        void stop()
+    }
+}
+
+@enduml
